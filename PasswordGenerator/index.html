@@ -8,12 +8,54 @@
 </head>
 <body>
     <div class="container">
-        <h1>Generate a <br>Random Password</h1>
+        <h1>Generate a <br><span>Random Password</span></h1>
         <div class="display">
             <input type="text" id="password" placeholder="Password">
-            <img src="images/copy.png" alt="">
+            <img src="images/copy.png" alt="" onclick="copyPass()">
+            <span id="copiedText">Copied!</span>
         </div>
+        <button onclick="createPassword()"> <img src="images/generate.png" alt=""> Generate password</button>
     </div>
-    
+    <script>
+        const passwordBox=document.getElementById("password");
+        const length=12;
+
+        const UpperCase="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const LowerCase="abcdefghijklmnopqrstuvwxyz";
+        const numbers="0123456789";
+        const symbols="~!@#$%^&*()_+{}|:<>/?"
+
+        const allChars = UpperCase+LowerCase+numbers+symbols;
+
+        function createPassword(){
+            let password="";
+            password +=UpperCase[Math.floor(Math.random()*UpperCase.length)];
+            password+=LowerCase[Math.floor(Math.random()* LowerCase.length)];
+            password+=numbers[Math.floor(Math.random()*numbers.length)];
+            password+=symbols[Math.floor(Math.random()*symbols.length)];
+
+        while(length>password.length)
+        {
+            password+=allChars[Math.floor(Math.random()*allChars.length)];
+        }
+        passwordBox.value=password;
+        }
+        
+        //copy function
+
+        function copyPass(){
+            passwordBox.select();
+            document.execCommand("copy");
+
+            // navigator.clipboard.writeText(passwordBox.value);
+
+            // document.getElementById("copiedText").style.display="inline";
+
+            // setTimeout(function(){
+            //     document.getElementById("copiedText").style.display="none";
+            // },2000);
+            
+        }
+    </script>
 </body>
 </html>
